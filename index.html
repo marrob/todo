@@ -3,37 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href=".\css\style.css">
     <title>todo</title>
 </head>
 <body>
     
         
-    <header>
-        <h1> Daily To-Do list manager</h1>               
-    </header>
+
     <main class="main__container">  
-        <div class="main__day">Thursday</div>
-        <div class="main__date">10-15-2020</div>
+        <header>
+            <h1> Daily To-Do list manager</h1>               
+        </header>
+        <div class="main__day">?????</div>
+        <div class="main__date">?</div>
         <div class="new__container">
             <input class="new__input" placeholder="Take the garbage out"> 
             <button type="button" class="btn new__button" action="new" >+</button>   
         </div>
-        <div class = "manager__container">
-            You have <span class="pending__counter">2 </span> pending items
-            <div class="pending__container">
-
+        <div class= "manager_chill"> </div>
+            <div class = "manager__container">
+                You have <span class="pending__counter">2 </span> pending items
+                <div class="pending__container"></div>
+                Copleted tasks: <span class="completed__percent ">??% </span> 
+                <div class="completed__container hide"></div>
+                <div class="btn__container">
+                    <div class="btn btn__completed"> Show Complete </div>
+                    <div class="btn btn__clear"> Clear All </div>
+                    <div class="btn btn__reset"> Reset </div>
+                </div>
             </div>
-            Copleted tasks: <span class="completed__percent">50% </span> 
-            <div class="completed__container">
-               
-            </div>
-            <div class="btn__container">
-                <div class="btn btn__completed"> Show Complete </div>
-                <div class="btn btn__clear"> Clear All </div>
-                <div class="btn btn__reset"> Reset </div>
-            </div>
-        </div>
-
     </main>
     <script src ="./main.js"></script> 
 </body>

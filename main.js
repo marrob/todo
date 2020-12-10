@@ -7,6 +7,7 @@ const newTodoInput = document.querySelector('.new__input');
 const manager = document.querySelector('.manager__container');
 const pendingCounter = document.querySelector('.pending__counter');
 const completedPercent = document.querySelector('.completed__percent');
+const completedButton = document.querySelector('.btn__completed');
 
 const readItemsFromStorage=()=>{
     let todoItems = [];
@@ -44,11 +45,14 @@ const statisticsUpdate = () =>{
 const addItemToFrontend = (container, todoItem)=>{
     const div = document.createElement('div');
     const box = document.createElement('input');
-    div.classList.add('todo__item');
+    div.classList.add('todo__item','swing');
+    div.addEventListener('mouseover', showTrashBtn);
+    div.addEventListener('mouseout', hideTrashBtn);
     div.setAttribute('key', todoItem.key);
     box.id = todoItem.key;
     box.type="checkbox";
     box.checked = todoItem.isCompleted;
+    box.classList.add('todo__checkbox');
     box.addEventListener('click', itemClickEventHandler);
     div.appendChild(box);
     const label = document.createElement('label');
@@ -57,18 +61,28 @@ const addItemToFrontend = (container, todoItem)=>{
     div.appendChild(label);
     const btn = document.createElement('button');
     btn.addEventListener('click', itemDeleteEventHandler);
+    btn.classList.add('btn__trash', 'btn__trash--hide');
     btn.textContent='delete';
     div.appendChild(btn);
     container.appendChild(div);
+}
+
+const showTrashBtn = (ev) =>{
+    const trashBtn = ev.currentTarget.querySelector('.btn__trash');
+    trashBtn.classList.add('btn__trash--show');
+    trashBtn.classList.remove('btn__trash--hide');
+}
+const hideTrashBtn = (ev) =>{
+    const trashBtn = ev.currentTarget.querySelector('.btn__trash');
+    trashBtn.classList.add('btn__trash--hide');
+    trashBtn.classList.remove('btn__trash--show');
 }
 
 const itemDeleteEventHandler = (ev) =>{
     const key = ev.target.parentNode.getAttribute('key');
     localStorage.removeItem(key);
     manager.querySelector(`[key="${key}"]`).remove();
-    console.log("item deleted key", key);
     statisticsUpdate();
-    completedTaskUpdate();
 }
 
 const itemClickEventHandler=(ev)=>{
@@ -89,6 +103,7 @@ const itemClickEventHandler=(ev)=>{
     }
     updateItemInStorage(changedItem);
     statisticsUpdate();
+    chillModeUpdate();
 }
 
 const getNewTodoText=()=>{
@@ -106,6 +121,8 @@ const openNewTodoEventListener=()=>{
         addItemToStorage(newTodoItem);
         addItemToFrontend(pendingList, newTodoItem);
         newTodoInput.value ="";
+        statisticsUpdate();
+        chillModeUpdate();
     });
 } 
 
@@ -119,43 +136,80 @@ const openResetTodoEventListener = () =>{
 const openShowCompletedTodoEventListener =()=>{
     document.querySelector('.btn__completed')
     .addEventListener('click',()=>{
-        completedList.classList.toggle('container--show');
+        completedList.classList.toggle('hide');
+        if(completedList.classList.contains('hide')){
+            completedButton.textContent = "Show Complete";
+        }
+        else{
+            completedButton.textContent = "Hide Complete";
+        }
     });
 }
-
 
 const openClearAllEventListener=()=>{
     document.querySelector('.btn__clear')
     .addEventListener('click',()=>{
+        const boxes = document.querySelectorAll('.todo__item input[type=checkbox]');
+        [...boxes].filter(item=>!item.checked).forEach(item=>{
+            const key = item.parentNode.getAttribute('key');
+            localStorage.removeItem(key);
+            item.parentNode.remove();
+        }) 
+        statisticsUpdate();
+        chillModeUpdate();
     });
 }
 
 
+const chillModeUpdate=()=>{
+    const boxes = document.querySelectorAll('.todo__item input[type=checkbox]');
+    const manager = document.querySelector('.manager__container');
+    const chill = document.querySelector('.manager_chill');
+    if([...boxes].every(item=>item.checked)) {
+        manager.classList.add('hide');
+        chill.classList.remove('hide');
+    }
+    else{
+        manager.classList.remove('hide');
+        chill.classList.add('hide');
+    }
+}
+
+
+const getDayName = (dateStr, locale) =>{
+    const date = new Date(dateStr);
+    return date.toLocaleDateString(locale, { weekday: 'long' });        
+}
+
+const getDate = (date)=>{
+    const year = date.getFullYear().toString();
+    const month = (date.getMonth() + 1).toString();
+    const day = date.getDate().toString();
+    return day.padStart(2,'0') +'-'+ month.padStart(2,'0') + '-' + year;
+
+}
 const main=()=>{
+    const now = new Date();
+    showDay.textContent = getDayName(now, "en-US");
+    showDate.textContent = getDate(now);
+
     const items = readItemsFromStorage();
     items.filter(item=>!item.isCompleted)
     .forEach(item=>addItemToFrontend(pendingList,item));
 
     items.filter(item=>item.isCompleted)
     .forEach(item=>addItemToFrontend(completedList,item));
-    console.log(items);
+
 }
 
+
+main();
 openResetTodoEventListener();
 openNewTodoEventListener();
 openShowCompletedTodoEventListener();
 openClearAllEventListener();
-main();
 statisticsUpdate();
 
 
-//readItemsFromStorage();
-/*
-let fakeItem = { key: 1, isCompleted:false, message:"Hello World"}
-addNewToFrontend (fakeItem);
-fakeItem = { key: 2, isCompleted:false, message:"Hello World"}
-addNewToFrontend (fakeItem);
-fakeItem = { key: 3, isCompleted:false, message:"Hello World"}
-addNewToFrontend (fakeItem);
-*/
-//addNewToStorage(fakeItem);
+
+

@@ -1,0 +1,125 @@
+@font-face {
+    font-family: 'roboto';
+    src: URL('/fonts/Roboto-Light.ttf') format('truetype');
+}
+:root { 
+    --button-height:30px;
+    --button-width:50px;
+    --button-margin:5px;
+    --display-height:50px;
+    --border-color: #F2F2F2;
+    --background-color:#83D2E3;
+    --text-color:#EDFFFF;
+}
+html {
+    font-family: 'roboto';
+    font-size: 16px;
+}
+*{
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+
+    height: 100vh;
+    width: 100vw;
+    z-index: 1000;
+
+    align-items:flex-start;
+    display: flex;
+    justify-content: center;
+    background-color: var(--background-color);
+}
+
+.main__container{
+    width: 100%;
+    padding: 20px;
+    border-radius: 1%;
+    color:var(--text-color);
+}
+
+@media screen and (min-width: 700px){
+    .main__container{
+        width: 50%;
+        padding: 50px;
+    }
+}
+
+.new__container{
+    display: flex;
+    justify-content: space-between;
+
+}
+.new__container input{
+    width: auto;
+    flex-grow: 1; 
+    font-size: 2rem;
+    border-radius: 0.5rem;
+    margin-right: 1rem;
+}
+.new__container .btn{
+    min-width: 3rem;
+}
+
+.hide{
+    display: none;
+}
+
+.manager_chill{
+    background-color: black;
+    height: 300px;
+}
+
+header h1{
+    text-align: center;
+}
+
+.todo__item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.todo__item label {
+    flex-grow: 1;
+    font-size: 2em;
+}
+
+.todo__item .todo__checkbox {
+    transform: scale(3);
+    margin-right: 20px;
+}
+
+.swing {
+    perspective: 100px;
+}
+
+.swing li {
+    opacity: 0;
+    transform: rotateX(-90deg);
+    transition: all 0.5s cubic-bezier(.36,-0.64,.34,1.76);
+  }
+
+.btn__trash{
+   height: 3em;
+}
+
+.btn__trash--hide{
+   pointer-events: none;
+   transition: 1s; 
+   opacity: 0%;
+}
+
+.btn__trash--show{
+    background-color: chartreuse;
+    opacity: 100%;
+    pointer-events:all;
+    transition: 1s; 
+}
+
+
+.btn__container{
+    display: flex;
+    justify-content: space-around;
+}
