@@ -4,23 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href=".\css\style.css">
+    <link rel="stylesheet" href="css\font-awesome-4.7.0\css\font-awesome.min.css">
     <title>todo</title>
 </head>
 <body>
     
         
-
+    <header>
+        <h1> Daily To-Do list manager</h1>               
+    </header>
     <main class="main__container">  
-        <header>
-            <h1> Daily To-Do list manager</h1>               
-        </header>
-        <div class="main__day">?????</div>
-        <div class="main__date">?</div>
+        <div class = "date__container">
+            <div class="main__day">?????</div>
+            <div class="main__date">?</div>   
+        </div>  
         <div class="new__container">
             <input class="new__input" placeholder="Take the garbage out"> 
-            <button type="button" class="btn new__button" action="new" >+</button>   
+            <button type="button" class="btn new__button fa fa-plus fa-2x" action="new" ></button>   
         </div>
-        <div class= "manager_chill"> </div>
+        <div class= "chill__container">
+            <div class="chill__content">
+                <img src="./img/chill.JPG" alt="chill" >
+                Time to chill! You have no todos.
+            </div>
+        </div>
             <div class = "manager__container">
                 You have <span class="pending__counter">2 </span> pending items
                 <div class="pending__container"></div>
@@ -35,4 +42,4 @@
     </main>
     <script src ="./main.js"></script> 
 </body>
-</html>
+</html>''

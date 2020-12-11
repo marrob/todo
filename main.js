@@ -45,7 +45,7 @@ const statisticsUpdate = () =>{
 const addItemToFrontend = (container, todoItem)=>{
     const div = document.createElement('div');
     const box = document.createElement('input');
-    div.classList.add('todo__item','swing');
+    div.classList.add('todo__item','todo--new');
     div.addEventListener('mouseover', showTrashBtn);
     div.addEventListener('mouseout', hideTrashBtn);
     div.setAttribute('key', todoItem.key);
@@ -57,14 +57,15 @@ const addItemToFrontend = (container, todoItem)=>{
     div.appendChild(box);
     const label = document.createElement('label');
     label.textContent = todoItem.message;
+    if(todoItem.isCompleted)
+        label.classList.add('text--crossed');
     label.for = todoItem.key;
     div.appendChild(label);
-    const btn = document.createElement('button');
+    const btn = document.createElement('div');
     btn.addEventListener('click', itemDeleteEventHandler);
-    btn.classList.add('btn__trash', 'btn__trash--hide');
-    btn.textContent='delete';
+    btn.classList.add('btn__trash', 'btn__trash--hide', 'fa','fa-trash', 'fa-2x');
     div.appendChild(btn);
-    container.appendChild(div);
+    container.insertAdjacentElement('afterbegin', div);
 }
 
 const showTrashBtn = (ev) =>{
@@ -160,11 +161,10 @@ const openClearAllEventListener=()=>{
     });
 }
 
-
 const chillModeUpdate=()=>{
     const boxes = document.querySelectorAll('.todo__item input[type=checkbox]');
     const manager = document.querySelector('.manager__container');
-    const chill = document.querySelector('.manager_chill');
+    const chill = document.querySelector('.chill__container');
     if([...boxes].every(item=>item.checked)) {
         manager.classList.add('hide');
         chill.classList.remove('hide');
@@ -174,7 +174,6 @@ const chillModeUpdate=()=>{
         chill.classList.add('hide');
     }
 }
-
 
 const getDayName = (dateStr, locale) =>{
     const date = new Date(dateStr);
@@ -199,9 +198,7 @@ const main=()=>{
 
     items.filter(item=>item.isCompleted)
     .forEach(item=>addItemToFrontend(completedList,item));
-
 }
-
 
 main();
 openResetTodoEventListener();
@@ -209,7 +206,7 @@ openNewTodoEventListener();
 openShowCompletedTodoEventListener();
 openClearAllEventListener();
 statisticsUpdate();
-
+chillModeUpdate();
 
 
 
