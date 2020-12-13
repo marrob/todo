@@ -1,7 +1,13 @@
 @font-face {
-    font-family: 'roboto';
+    font-family: 'roboto-light';
     src: URL('/fonts/Roboto-Light.ttf') format('truetype');
 }
+
+@font-face {
+    font-family: 'roboto-bold';
+    src: URL('/fonts/Roboto-Bold.ttf') format('truetype');
+}
+
 :root { 
     --new-btn-background:#DCDCDC;
     --pending-background:#E0E8F5;
@@ -10,7 +16,7 @@
     --footer-color:#454545;
 }
 html {
-    font-family: 'roboto';
+    font-family: 'roboto-light';
     font-size: 16px;
 }
 *{
@@ -41,7 +47,9 @@ header h1{
     width: 100vw;
     text-align: center;
     color:#FFF;
-    z-index: 100;
+    z-index: -100;
+    font-weight: bold;
+    font-family: 'roboto-bold';
 }
 
 .main__container{
@@ -81,12 +89,13 @@ header h1{
 }
 
 .new__container .btn{
-    min-width: 3rem;
+    padding-top: 0.2rem;
+    padding:1rem;
     background-color: var(--new-btn-background);
     border: 1px solid var(--new-btn-background);
     border-radius: 0.2rem;
     color: #FFF;
-    transition: background-color 2s;
+    transition: background-color 1s;
 }
 
 .new__container .btn:hover{
@@ -120,6 +129,14 @@ header h1{
     font-size: 2em;
 }
 
+.todo__item .todo__checkbox{
+    transform: scale(3);
+    margin-right: 40px;
+
+    position: relative;
+    left: 20px;
+}
+
 .todo--new {
     
     max-height: 0;
@@ -140,11 +157,6 @@ header h1{
       transform: translateX(0);
     }
   }
-
-.todo__item .todo__checkbox {
-    transform: scale(3);
-    margin-right: 20px;
-}
 
 .btn__trash{
    
@@ -193,6 +205,7 @@ header h1{
     font-size: 1.5em;
     font-weight: bold;
     margin-top: 1rem;
+    font-family: 'roboto-bold';
 }
 
 input[type=checkbox]:checked{
